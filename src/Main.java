@@ -1,18 +1,15 @@
-import java.awt.Frame;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
  
 /**
  * 
  * @author Raul Sanchez Galan
- * @version 1.0.0
+ * @version 1.0
  * 
- * Eemplo de uso de JDBC para conectarse a una base de datos Oracle local
+ * Ejemplo de uso de JDBC para conectarse a una base de datos Oracle local
  *
  */
 public class Main {
@@ -23,7 +20,7 @@ public class Main {
     	
     	Connection cn=abrirConexionConOracle(user,password); //Establecemos la conexion con Oracle
     	
-    	String sentenciaSQL="DROP TABLE pablo";
+    	String sentenciaSQL="DROP TABLE persona";
     	ejecutaSentenciaSQL(sentenciaSQL,cn);//Ejecutamos la setencia SQL
     }
 
@@ -32,7 +29,12 @@ public class Main {
     
     
     
-    
+    /**
+     * Metodo para ejecutar una setencia SQL, dada una conexion a una base de datos
+     * 
+     * @param sentenciaSQL String que contiene la setencia sql que se va a ejecutar
+     * @param cn Connection. Conexión a la base de datos sobre la que se va a ejecutar la sentencia SQL
+     */
 	private static void ejecutaSentenciaSQL(String sentenciaSQL, Connection cn) {
 		Statement stmt = null;
 		try {
@@ -46,12 +48,21 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Metodo para abrir una conexion estandar para Oracle Express en local
+	 * dado un usuario y contraseña
+	 * 
+	 * @param user String. Usuario de la conexión.
+	 * @param password String. Password
+	 * @return Connection. La conexión establecida.
+	 */
 	private static Connection abrirConexionConOracle(String user, String password) {
 		Connection cn=null;
 		try {
 			 cn = DriverManager.getConnection("jdbc:oracle:thin:"+user+"/"+password+"@localhost:1521:XE", user, password);
 			return cn;
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return cn;
